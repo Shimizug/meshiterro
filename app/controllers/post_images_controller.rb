@@ -9,7 +9,7 @@ class PostImagesController < ApplicationController
     # user_idは投稿時に指定していない（ユーザには自分のuserモデルのIDは分からない）からここで指定してあげる必要がある
     post_image.user_id = current_user.id
     post_image.save
-    redirect_to post_images_path
+    redirect_to post_image_path(post_image.id)
   end
 
   def index
@@ -18,6 +18,12 @@ class PostImagesController < ApplicationController
 
   def show
     @post_image = PostImage.find(params[:id])
+  end
+
+  def destroy
+    @post_image = PostImage.find(params[:id])
+    @post_image.destroy
+    redirect_to post_images_path
   end
 
 
